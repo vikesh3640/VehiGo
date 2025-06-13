@@ -2,6 +2,7 @@ import { getCarById } from "@/actions/car-listing";
 import { notFound } from "next/navigation";
 import { TestDriveForm } from "./_components/test-drive-form";
 
+// Metadata generation
 export async function generateMetadata() {
   return {
     title: `Book Test Drive | Vehiql`,
@@ -9,12 +10,12 @@ export async function generateMetadata() {
   };
 }
 
-export default async function TestDrivePage({ params }) {
-  // Fetch car details
-  const { id } = params;
+// Page component
+export default async function TestDrivePage(props) {
+  const { id } = await props.params;
+
   const result = await getCarById(id);
 
-  // If car not found, show 404
   if (!result.success) {
     notFound();
   }
